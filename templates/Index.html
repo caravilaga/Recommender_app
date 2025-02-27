@@ -198,8 +198,8 @@
 							type:"GET",
 							dataType: "json",
 							data:{},
-							//url: "http://127.0.0.1:5000/data/", //original call to route
-							url: "http://localhost:5000/prediccion/" + prodivedBudget,
+							//url: "http://localhost:8080/prediccion/" + prodivedBudget, //original call to route
+							url: "https://motor-recomendaciones-851807229496.us-south1.run.app/prediccion/" + prodivedBudget,
 							crossDomain: true,
 							success: function(data){
 								console.log(data);

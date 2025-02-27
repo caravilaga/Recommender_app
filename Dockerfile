@@ -26,7 +26,7 @@ ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "venv_", "python"]
 # Copy your application code
 COPY . .
 
-EXPOSE 5000
+EXPOSE 8080
 
 # Default command (can be overridden)
 CMD ["App.py"]
