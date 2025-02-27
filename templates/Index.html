@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+ <!-- Head-->
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Compensar - Recomendador</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="static/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" />
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
+		  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+		  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="static/styles.css" rel="stylesheet" />
+		
+		    <style>
+        /* Cambiar los colores a tonos naranjas */
+        .navbar {
+            background-color: #f57c00; /* Naranja fuerte para la navbar */
+        }
+
+        .navbar a {
+            color: white !important; /* Asegurarnos de que los enlaces sean blancos */
+        }
+
+        .btn-primary {
+            background-color: #ff9800; /* Naranja claro */
+            border-color: #ff9800;
+        }
+
+        .btn-primary:hover {
+            background-color: #f57c00; /* Naranja oscuro cuando se pasa el mouse */
+            border-color: #f57c00;
+        }
+
+        .table {
+            background-color: #fff3e0; /* Fondo muy suave en la tabla */
+        }
+
+        .table-striped tbody tr:nth-child(odd) {
+            background-color: #ffe0b2; /* Fondo naranja suave para filas impares */
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: #ffb74d; /* Naranja al pasar el mouse sobre la fila */
+        }
+
+        /* Para el borde del campo de texto */
+        .form-control:focus {
+            border-color: #ff9800 !important;
+            box-shadow: 0 0 0 0.2rem rgba(255, 152, 0, 0.25);
+        }
+		
+		.icon-orange {
+			color: #f57c00;
+		}
+		
+        .section-budget {
+            color: #f57c00;
+            font-size: 24px;
+        }
+		
+		body, html {
+			margin: 0;
+			padding: 0;
+			width: 100%;
+		  }
+    </style>
+	
+    </head>
+	 <!-- End of Head-->
+	 
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar static-top">
+            <div class="container">
+                <a class="navbar-brand" href="#!">Recomendador de productos y servicios</a>
+                <a class="navbar-brand" href="#about">Acerca</a>
+            </div>
+        </nav>
+        <!-- Masthead-->
+      
+         <div class="container-fluid">
+			<div class="row justify-content-start">
+				<div class="col-12">
+					<div class="center-header text-start">
+						<!-- Texto explicativo que se extiende a lo largo de la página -->
+						
+
+						<!-- Page heading-->
+						<div class="form-group mx-sm-3 mb-2 ml-10">
+							<h4 class="mb-0 top-header">Ingrese el número de identificación del cliente</h4>
+						</div>
+						<div class="form-inline" id="frm">
+							<div class="form-group mx-sm-3 mb-2">
+								<label for="budgetamount" class="sr-only">ID Cliente</label>
+								<input type="number" class="form-control form-control-md input-budget" id="budgetamount" required placeholder="ID cliente">
+								<button class="btn btn-primary" onclick='fillItem()'>Predecir</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        
+
+<section class="features-icons bg-white text-center py-3" style="margin-top: 20px;">
+    <div class="container">
+        <div class="row">
+            <!-- Columna para el ID del cliente -->
+            <div class="col-lg-4">
+                <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                    <div class="features-icons-icon d-digits">
+                        <i class="bi-person-fill m-auto text-primary icon-orange"></i>
+                    </div>
+                    <h3>ID del cliente</h3>
+                    <p class="lead mb-0">ID proporcionado</p>
+                    <h3 id="sectionBudget"></h3> 
+                </div>
+            </div>
+
+            <!-- Columna para la tabla de productos recomendados -->
+            <div class="col-lg-8">
+                <table class="table table-sm table-striped table-hover" id="dataTable">
+                    <caption>Productos recomendados</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Categoría</th>
+                            <th scope="col">Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyid">
+                        <!-- Aquí se insertarán las filas dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+     
+      
+        <!-- Footer-->
+        <footer class="footer bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
+   
+                        <p class="text-muted small mb-4 mb-lg-0">&copy; Carlos Ávila.</p>
+                    </div>
+                    <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item me-4">
+                                <a href="https://github.com/caravilaga"><i class="bi-github fs-3"></i></a>
+                            </li>
+                            <li class="list-inline-item me-4">
+                                <a href="https://www.linkedin.com/in/carlos-arturo-avila-garcia/"><i class="bi-linkedin fs-3"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
+		<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+
+		<script>	
+
+			    let fillItem = () => {
+    if (!$('#budgetamount').val()) {
+        // Si no hay valor ingresado, resaltar el borde en rojo
+        $('#budgetamount').attr('style', "border-radius: 5px; border:#FF0000 1px solid;");
+    } else {
+        // Remover valores anteriores
+        document.getElementById("sectionBudget").innerHTML = "";
+        $("#tbodyid").empty();  // Limpiar la tabla antes de agregar nuevos datos
+
+        // Obtener el presupuesto ingresado
+        var prodivedBudget = $("#budgetamount").val();
+        let budgetElement = document.getElementById('sectionBudget');
+        budgetElement.innerHTML += prodivedBudget;  // Mostrar el presupuesto
+
+        // Llamada AJAX para obtener los productos recomendados
+        $.ajax({
+							type:"GET",
+							dataType: "json",
+							data:{},
+							//url: "http://127.0.0.1:5000/data/", //original call to route
+							url: "http://localhost:5000/prediccion/" + prodivedBudget,
+							crossDomain: true,
+							success: function(data){
+								console.log(data);
+								var parsedJson = $.parseJSON(data);
+								$.each(parsedJson,function(index,value){ 
+								   console.log( value.name);
+								});
+								//
+								$("#tbodyid").empty();
+								var rows = [];
+								$.each(parsedJson,function(index,value) {
+									rows.push('<tr><td>' + value.name + '</td><td>' + value.category + '</td><td>' + value.descripcion + '</td></tr>');
+
+								});
+								$('table').append(rows.join(''));
+							
+							}
+						});
+    }
+}
+
+		</script>
+
+    </body>
+</html>
